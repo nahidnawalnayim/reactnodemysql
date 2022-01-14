@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+import React,{useState} from 'react';
 import './App.css';
+import Axios from 'axios'
 
 function App() {
+  const [usernamereg,setusername]=useState('') 
+  const [passwordreg,setpassword]=useState('');
+
+  const register=()=>{
+    Axios.post('http://localhost:3007/register',{
+      name: usernamereg,
+      password: passwordreg
+    }).then(res=>{
+      console.log(res)
+    })  
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <div clasName="registration">
+      
+       <input placeholder="Enter name" name="name" onChange={(e)=>{
+         setusername(e.target.value)
+       }}/>
+       <br/>
+     <input placeholder="Enter password" name="password" onChange={(e)=>{
+       setpassword(e.target.value)
+     }}/>
+     <button onClick={register}>register</button>
+     </div>
     </div>
   );
 }
